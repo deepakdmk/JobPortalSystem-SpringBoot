@@ -57,6 +57,10 @@
                 </li>
 
             </ul>
+
+            <img class="rounded-circle me-3" height="50px" width="50x" th:if="${user.photosImagePath!=null}"
+                th:src="@{${user?.photosImagePath}}" />
+
             <label th:if="${user.firstName != null && user.lastName != null}"
                 th:text="${user.firstName+' '+user.lastName}" class="nav-item nav-link px-2 me-3">
             </label>
@@ -68,6 +72,46 @@
         </div>
     </header>
 
+    <section class="section">
+        <div class="sidenav px-5">
+        </div>
+        <article>
+            <div class="box" sec:authorize="hasAuthority('Recruiter')">
+                <h1 class="primary-title">Recruiter Dashboard</h1>
+            </div>
+            <div class="box mt-3">
+                <label class="large-label px-3 mb-3" sec:authorize="hasAuthority('Job Seeker')">Search Results</label>
+                <th:block th:each="jobPost:${jobPost}">
+                    <a th:href="@{/job-details-apply/{id}(id=${jobPost.jobPostId})}"
+                        style="text-decoration: none; color: black">
+                        <div onclick="window.location=/job-details-apply/{id}(id=${jobPost.jobPostId})" class="job-row">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="job-title text-left">
+                                        [[${jobPost.jobTitle}]]
+                                        <span class="title-span" sec:authorize="hasAuthority('Recruiter')"
+                                            th:text="'('+ @{${jobPost.totalCandidates}}+' Candidates Applied)'">(xx
+                                            candidates applied)</span>
+                                        <span class="title-span" sec:authorize="hasAuthority('Job Seeker')"
+                                            th:if="${jobPost.isActive == true}">(Applied)</span>
+                                        <span class="title-span" sec:authorize="hasAuthority('Job Seeker')"
+                                            th:if="${jobPost.isSaved == true}">(Saved)</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    <label th:text="${jobPost.jobLocationId.city+', '+ jobPost.jobLocationId.state}">
+                                        City State</label>
+                                </div>
+                                <div class="col-md-4 text-right">
+                                    <label th:text="@{${jobPost.jobCompanyId.name}}">Recruiter Company Name</label>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </th:block>
+            </div>
+        </article>
+    </section>
 
     <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>

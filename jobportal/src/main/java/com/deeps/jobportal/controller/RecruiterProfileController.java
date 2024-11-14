@@ -17,6 +17,7 @@ import com.deeps.jobportal.entity.RecruiterProfile;
 import com.deeps.jobportal.entity.Users;
 import com.deeps.jobportal.repository.UsersRepository;
 import com.deeps.jobportal.service.RecruiterProfileService;
+import com.deeps.jobportal.util.FileUploadUtil;
 
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -70,7 +71,12 @@ public class RecruiterProfileController {
         }
         RecruiterProfile savedUser = recruitersProfileService.addNew(recruiterProfile);
         String uploadDir = "photos/recruiter/" + savedUser.getUserAccountId();
-
+        try {
+            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return "redirect:/dashboard/";
     }
 
 }
