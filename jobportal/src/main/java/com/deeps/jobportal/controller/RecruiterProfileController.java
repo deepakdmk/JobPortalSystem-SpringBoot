@@ -22,7 +22,6 @@ import com.deeps.jobportal.util.FileUploadUtil;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequestMapping("/recruiter-profile")

@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.deeps.jobportal.entity.RecruiterJobsDto;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class JobPostActivityController {
@@ -73,7 +72,7 @@ public class JobPostActivityController {
         }
         jobPostActivity.setPostedDate(new Date());
         model.addAttribute("jobPostActivity", jobPostActivity);
-        JobPostActivity saved = jobPostActivityService.addNew(jobPostActivity);
+        jobPostActivityService.addNew(jobPostActivity);
         return "redirect:/dashboard/";
     }
 
