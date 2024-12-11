@@ -115,6 +115,8 @@ public class JobPostActivityController {
 					Arrays.asList(remoteOnly, officeOnly, partialRemote), searchDate);
 
 		}
+		System.out.println("All the jobs on dashboard -" + jobPost.toString());
+
 		Object currentUserProfile = usersService.getCurrentUserProfile();
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -129,6 +131,7 @@ public class JobPostActivityController {
 				System.out.println(recruiterJobs.toString());
 				model.addAttribute("jobPost", recruiterJobs);
 			} else {
+				System.out.println("Dashboard for Seeker Loading..");
 				List<JobSeekerApply> jobSeekerApplyList = jobSeekerApplyService
 						.getCandidateJobs((JobSeekerProfile) currentUserProfile);
 				List<JobSeekerSave> jobSeekerSaveList = jobSeekerSaveService
@@ -138,6 +141,7 @@ public class JobPostActivityController {
 				boolean saved;
 
 				for (JobPostActivity jobActivity : jobPost) {
+					jobActivity.toString();
 					exist = false;
 					saved = false;
 					for (JobSeekerApply jobSeekerApply : jobSeekerApplyList) {

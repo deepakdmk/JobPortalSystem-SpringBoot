@@ -61,31 +61,32 @@ public class JobSeekerApplyController {
 				RecruiterProfile user = recruiterProfileService.getCurrentRecruiterProfile();
 				if (user != null) {
 					model.addAttribute("applyList", jobSeekerApplyList);
-				} else {
+				}
+			} else {
 
-					JobSeekerProfile seekerUser = jobSeekerProfileService.getCurrentSeekerProfile();
-					if (seekerUser != null) {
-						boolean exists = false;
-						boolean saved = false;
-						for (JobSeekerApply jobSeekerApply : jobSeekerApplyList) {
-							if (jobSeekerApply.getUserId().getUserAccountId() == seekerUser.getUserAccountId()) {
-								exists = true;
-								break;
-							}
+				JobSeekerProfile user = jobSeekerProfileService.getCurrentSeekerProfile();
+				if (user != null) {
+					boolean exists = false;
+					boolean saved = false;
+					for (JobSeekerApply jobSeekerApply : jobSeekerApplyList) {
+						if (jobSeekerApply.getUserId().getUserAccountId() == user.getUserAccountId()) {
+							exists = true;
+							break;
+						}
 
-						}
-						for (JobSeekerSave jobSeekerSave : jobSeekerSaveList) {
-							if (jobSeekerSave.getUserId().getUserAccountId() == user.getUserAccountId()) {
-								saved = true;
-								break;
-							}
-						}
-						model.addAttribute("alreadyApplied", exists);
-						model.addAttribute("alreadySaved", saved);
 					}
+					for (JobSeekerSave jobSeekerSave : jobSeekerSaveList) {
+						if (jobSeekerSave.getUserId().getUserAccountId() == user.getUserAccountId()) {
+							saved = true;
+							break;
+						}
+					}
+					model.addAttribute("alreadyApplied", exists);
+					model.addAttribute("alreadySaved", saved);
 				}
 			}
 		}
+
 		JobSeekerApply jobSeekerApply = new JobSeekerApply();
 		model.addAttribute("applyJob", jobSeekerApply);
 		model.addAttribute("jobDetails", jobDetails);
