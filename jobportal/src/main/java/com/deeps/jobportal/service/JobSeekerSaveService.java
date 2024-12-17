@@ -21,10 +21,13 @@ public class JobSeekerSaveService {
 	public List<JobSeekerSave> getCandidatesJob(JobSeekerProfile userAccountId) {
 		return jobSeekerSaveRepo.findByUserId(userAccountId);
 	}
-	
+
 	public List<JobSeekerSave> getJobCandidates(JobPostActivity job) {
 		return jobSeekerSaveRepo.findByJob(job);
 	}
-	
-	
+
+	public void addNew(JobSeekerSave jobSeekerSave) {
+		jobSeekerSaveRepo.save(jobSeekerSave);
+	}
+
 }
